@@ -17,6 +17,7 @@ import {
 export class LoginComponent implements OnInit {
   message: string;
   user: SocialUser;
+  isLoggedIn: boolean;
 
   constructor(public authService: AuthService, public router: Router, private socialAuthService: SocialAuthService) {
     this.setMessage();
@@ -26,6 +27,9 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.socialAuthService.authState.subscribe(user => {
       this.user = user;
+    });
+    this.authService.login().subscribe(() => {
+      this.setMessage();
     });
   }
 
